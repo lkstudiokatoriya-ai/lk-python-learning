@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offline | Python Learning</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Segoe UI,Arial,sans-serif;
+background:linear-gradient(135deg,#020617,#0f172a,#111827);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+overflow:hidden;
+}
+
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left,#38bdf830 0%,transparent 35%),
+radial-gradient(circle at bottom right,#2563eb30 0%,transparent 35%);
+animation:bgMove 8s linear infinite alternate;
+}
+
+.card{
+position:relative;
+z-index:2;
+width:92%;
+max-width:520px;
+padding:40px;
+border-radius:24px;
+background:rgba(15,23,42,.82);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.12);
+box-shadow:0 25px 70px rgba(0,0,0,.45);
+text-align:center;
+animation:fade .8s ease;
+}
+
+.logo{
+width:95px;
+height:95px;
+margin:auto;
+border-radius:50%;
+background:linear-gradient(135deg,#38bdf8,#2563eb);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:42px;
+font-weight:700;
+box-shadow:0 0 35px rgba(56,189,248,.55);
+animation:pulse 2s infinite;
+}
+
+h1{
+margin:28px 0 12px;
+font-size:34px;
+font-weight:700;
+}
+
+p{
+font-size:17px;
+line-height:1.8;
+color:#cbd5e1;
+margin-bottom:28px;
+}
+
+.status{
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:12px 20px;
+background:#1e293b;
+border-radius:30px;
+border:1px solid #334155;
+font-size:15px;
+margin-bottom:30px;
+}
+
+.dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#ef4444;
+animation:blink 1s infinite;
+}
+
+.actions{
+display:flex;
+gap:14px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+button{
+border:none;
+cursor:pointer;
+padding:14px 28px;
+font-size:16px;
+font-weight:600;
+border-radius:12px;
+transition:.3s;
+}
+
+.retry{
+background:#38bdf8;
+color:#02111f;
+}
+
+.retry:hover{
+background:#fff;
+transform:translateY(-3px);
+}
+
+.home{
+background:#1e293b;
+color:#fff;
+border:1px solid #334155;
+}
+
+.home:hover{
+background:#334155;
+transform:translateY(-3px);
+}
+
+footer{
+margin-top:28px;
+font-size:13px;
+color:#94a3b8;
+}
+
+@keyframes pulse{
+50%{transform:scale(1.08)}
+}
+
+@keyframes blink{
+50%{opacity:.2}
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes bgMove{
+from{transform:scale(1)}
+to{transform:scale(1.15)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="card">
+
+<div class="logo">Py</div>
+
+<h1>No Internet Connection</h1>
+
+<p>
+Python Learning is currently offline.<br>
+Please check your internet connection and try again.
+</p>
+
+<div class="status">
+<div class="dot"></div>
+Offline Mode
+</div>
+
+<div class="actions">
+<button class="retry" onclick="location.reload()">Retry</button>
+<button class="home" onclick="window.location.href='home.html'">Open Home</button>
+</div>
+
+<footer>
+Python Learning • Progressive Web App
+</footer>
+
+</div>
+
+</body>
+</html>
