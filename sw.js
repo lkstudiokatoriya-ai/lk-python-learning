@@ -2,7 +2,7 @@ const CACHE_NAME = "python-learning-v1";
 
 const FILES_TO_CACHE = [
   "/",
-  "/system_intro.html",
+  "/index.html",
   "/home.html",
   "/manifest.json",
 
