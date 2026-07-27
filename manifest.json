@@ -2,7 +2,7 @@
   "name": "Python Learning",
   "short_name": "Python",
   "description": "Python Learning Repository by Lalan Kumar",
-  "start_url": "system_intro.html",
+  "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
