@@ -4,6 +4,7 @@ const FILES_TO_CACHE = [
   "/",
   "/index.html",
   "/home.html",
+  "/offline.html",
   "/manifest.json",
 
   "/icons/icon-192.png",
@@ -77,4 +78,9 @@ self.skipWaiting();
 
 }
 
+});
+self.addEventListener("fetch", event => {
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match("/offline.html"))
+  );
 });
