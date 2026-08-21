@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ultimate Python Coder</title>
+    <!-- Tailwind CSS (For styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome (For icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Ace Editor (For the code editor interface) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.2/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.2/theme-monokai.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.2/mode-python.js"></script>
+    <!-- Pyodide (To run Python in the browser) -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+
+    <style>
+        /* Custom Fonts and futuristic styling */
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Poppins:wght@400;600;800&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #050505;
+            color: #fff;
+            overflow: hidden; /* No scrolling, native app feel */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Run Button Glow */
+        .run-btn-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            transition: all 0.3s ease;
+        }
+        .run-btn-glow:hover {
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Terminal Styling */
+        #terminal-output {
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #00ff88 #111;
+        }
+        
+        #terminal-output::-webkit-scrollbar {
+            width: 8px;
+        }
+        #terminal-output::-webkit-scrollbar-track {
+            background: #111;
+        }
+        #terminal-output::-webkit-scrollbar-thumb {
+            background-color: #00ff88;
+            border-radius: 10px;
+        }
+
+        /* Override Ace Editor styling to fit the theme */
+        #editor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            font-family: 'Fira Code', monospace !important;
+            font-size: 16px !important;
+        }
+
+        .output-line { margin-bottom: 4px; }
+        .output-error { color: #ff4757; text-shadow: 0 0 5px rgba(255,71,87,0.5); }
+        .output-success { color: #00ff88; }
+        .output-system { color: #5352ed; font-style: italic; }
+
+        /* Loader Animation */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid #00ff88;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Mode Selector Background */
+        #mode-selector {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
+        }
+    </style>
+</head>
+<body class="w-screen h-screen">
+
+    <!-- 1. Mode Selector (Intro Screen) -->
+    <div id="mode-selector" class="absolute inset-0 z-50 flex flex-col items-center justify-center p-4">
+        <h1 class="text-5xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#00ff88] to-[#00b8ff] text-center">
+            Python Studio
+        </h1>
+        <p class="text-gray-400 mb-12 text-center text-lg">Futuristic coding experience. Choose your style.</p>
+        
+        <div class="flex flex-col md:flex-row gap-6 w-full max-w-3xl">
+            <!-- Desktop Mode Button -->
+            <button onclick="startApp('desktop')" class="flex-1 glass-panel p-8 rounded-3xl hover:bg-white/5 transition border border-white/10 group relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition"></div>
+                <i class="fa-solid fa-laptop-code text-5xl text-blue-400 mb-4 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]"></i>
+                <h2 class="text-2xl font-bold mb-2">Computer Feel</h2>
+                <p class="text-sm text-gray-400">Landscape mode, side-by-side output. For pro coders.</p>
+            </button>
+
+            <!-- Mobile Mode Button -->
+            <button onclick="startApp('mobile')" class="flex-1 glass-panel p-8 rounded-3xl hover:bg-white/5 transition border border-white/10 group relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition"></div>
+                <i class="fa-solid fa-mobile-screen text-5xl text-green-400 mb-4 drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]"></i>
+                <h2 class="text-2xl font-bold mb-2">Mobile Feel</h2>
+                <p class="text-sm text-gray-400">Full screen, code on top, output below. Buttery smooth.</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Main Coding Workspace (Hidden Initially) -->
+    <div id="workspace" class="hidden w-full h-full flex flex-col md:flex-row bg-[#0a0a0f]">
+        
+        <!-- Code Editor Area -->
+        <div id="editor-wrapper" class="relative w-full h-1/2 md:h-full md:w-3/5 border-b md:border-b-0 md:border-r border-white/10">
+            <div id="editor"># Write your magical Python code here...
+import math
+import random
+
+def welcome():
+    print("🚀 Welcome to Python Studio!")
+    print(f"👉 Random Number: {random.randint(1, 100)}")
+    print(f"👉 Value of Pi: {math.pi}")
+
+welcome()
+</div>
+            
+            <!-- Floating Run Button -->
+            <button id="run-btn" onclick="runPythonCode()" disabled class="absolute bottom-6 right-6 z-10 bg-gradient-to-r from-[#00ff88] to-[#00cc6a] text-black font-bold py-3 px-8 rounded-full run-btn-glow flex items-center gap-3 opacity-50 cursor-not-allowed">
+                <span id="btn-loader" class="loader"></span>
+                <span id="btn-text">Loading Engine...</span>
+                <i id="btn-icon" class="fa-solid fa-play hidden"></i>
+            </button>
+        </div>
+
+        <!-- Terminal / Output Area -->
+        <div id="terminal-wrapper" class="w-full h-1/2 md:h-full md:w-2/5 flex flex-col bg-[#050505] relative">
+            <!-- Terminal Header -->
+            <div class="px-4 py-3 bg-[#111] border-b border-white/10 flex justify-between items-center glass-panel">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-terminal text-gray-400 text-sm"></i>
+                    <span class="text-xs text-gray-400 font-bold uppercase tracking-wider">Output Terminal</span>
+                </div>
+                <button onclick="clearTerminal()" class="text-gray-500 hover:text-white transition" title="Clear Terminal">
+                    <i class="fa-solid fa-trash-can text-sm"></i>
+                </button>
+            </div>
+            
+            <!-- Actual Output -->
+            <div id="terminal-output" class="flex-1 p-4">
+                <div class="output-system">-- System Initializing --</div>
+                <div class="output-system">Please wait, setting up Python environment... (This may take a few seconds)</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main JavaScript Logic -->
+    <script>
+        let pyodideInstance = null;
+        let editor = null;
+
+        // 1. Start App and set layout mode
+        async function startApp(mode) {
+            const elem = document.documentElement;
+            
+            // Request Fullscreen
+            try {
+                if (elem.requestFullscreen) {
+                    await elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) { /* Safari */
+                    await elem.webkitRequestFullscreen();
+                }
+            } catch (err) {
+                console.log("Fullscreen request was blocked or not supported.");
+            }
+
+            // Lock Orientation (If supported by device)
+            try {
+                if (mode === 'desktop' && screen.orientation && screen.orientation.lock) {
+                    await screen.orientation.lock('landscape');
+                } else if (mode === 'mobile' && screen.orientation && screen.orientation.lock) {
+                    await screen.orientation.lock('portrait');
+                }
+            } catch (err) {
+                console.log("Orientation lock not supported or blocked (Usually works only on mobile devices).", err);
+            }
+
+            // Switch UI
+            document.getElementById('mode-selector').classList.add('hidden');
+            const workspace = document.getElementById('workspace');
+            workspace.classList.remove('hidden');
+
+            // Force layout for 'desktop' mode even if viewed on a smaller screen
+            if (mode === 'desktop') {
+                workspace.classList.remove('flex-col');
+                workspace.classList.add('flex-row');
+                document.getElementById('editor-wrapper').className = "relative w-1/2 h-full border-r border-white/10";
+                document.getElementById('terminal-wrapper').className = "w-1/2 h-full flex flex-col bg-[#050505] relative";
+            }
+
+            // Initialize Editor
+            initEditor();
+            // Load Python Engine
+            initPyodide();
+        }
+
+        // 2. Setup Ace Editor
+        function initEditor() {
+            editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai"); // Dark theme
+            editor.session.setMode("ace/mode/python");
+            editor.setOptions({
+                fontSize: "16px",
+                showPrintMargin: false,
+                wrap: true,
+                enableBasicAutocompletion: true,
+                enableLiveAutocompletion: true
+            });
+            // Custom background for deeper dark look
+            editor.container.style.background = "#0a0a0f";
+        }
+
+        // 3. Load Pyodide (Python WebAssembly)
+        async function initPyodide() {
+            try {
+                // Load Pyodide and capture stdout/stderr
+                pyodideInstance = await loadPyodide({
+                    stdout: (text) => appendToTerminal(text, 'output-success'),
+                    stderr: (text) => appendToTerminal(text, 'output-error')
+                });
+                
+                // Activate the Run button
+                const runBtn = document.getElementById('run-btn');
+                runBtn.disabled = false;
+                runBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                
+                document.getElementById('btn-loader').classList.add('hidden');
+                document.getElementById('btn-icon').classList.remove('hidden');
+                document.getElementById('btn-text').innerText = "RUN CODE";
+
+                appendToTerminal("✅ Python is ready! Run your code.", "output-system");
+            } catch (error) {
+                appendToTerminal("❌ Error loading Python: " + error.message, "output-error");
+            }
+        }
+
+        // 4. Run Python Code
+        async function runPythonCode() {
+            if (!pyodideInstance) return;
+
+            const code = editor.getValue();
+            const btn = document.getElementById('run-btn');
+            const icon = document.getElementById('btn-icon');
+            
+            // Button Animation
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-spinner', 'fa-spin');
+            
+            appendToTerminal(">>> Running...", "output-system");
+
+            try {
+                // Execute code
+                await pyodideInstance.runPythonAsync(code);
+            } catch (error) {
+                // Handle compilation or runtime errors
+                appendToTerminal(error.toString(), "output-error");
+            }
+
+            // Reset button
+            icon.classList.remove('fa-spinner', 'fa-spin');
+            icon.classList.add('fa-play');
+        }
+
+        // 5. Append text to Terminal
+        function appendToTerminal(text, className) {
+            const terminal = document.getElementById('terminal-output');
+            const div = document.createElement('div');
+            div.className = `output-line ${className}`;
+            // Preserve spaces and newlines
+            div.style.whiteSpace = "pre-wrap"; 
+            div.textContent = text;
+            terminal.appendChild(div);
+            // Auto scroll to bottom
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // 6. Clear Terminal
+        function clearTerminal() {
+            document.getElementById('terminal-output').innerHTML = '';
+            appendToTerminal("✨ Terminal cleared.", "output-system");
+        }
+
+        // Resize editor on window resize (fixes issues when mobile keyboard opens)
+        window.addEventListener('resize', () => {
+            if(editor) {
+                editor.resize();
+            }
+        });
+    </script>
+</body>
+</html>
