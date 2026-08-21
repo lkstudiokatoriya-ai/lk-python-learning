@@ -320,6 +320,143 @@
             40% { clip-path: polygon(0 80%, 100% 80%, 100% 90%, 0 90%); transform: translate(2px); }
         }
         .text-glitch { animation: nameGlitch 0.4s cubic-bezier(.25, .46, .45, .94) both 2; }
+    /* =========================================================
+   RUN CODE — FUTURISTIC HUD BUTTON
+   ========================================================= */
+
+#run-code-btn {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+
+    z-index: 99999;
+    pointer-events: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 11px 18px;
+
+    color: #00f3ff;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,243,255,0.12),
+            rgba(2,6,23,0.75)
+        );
+
+    border: 1px solid rgba(0,243,255,0.75);
+    border-radius: 6px;
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 0 8px rgba(0,243,255,0.35),
+        inset 0 0 12px rgba(0,243,255,0.08);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Small terminal icon */
+#run-code-btn::before {
+    content: "▶";
+    font-size: 10px;
+    color: #00ff66;
+
+    text-shadow:
+        0 0 6px #00ff66;
+
+    transition: transform 0.25s ease;
+}
+
+/* Moving light effect */
+#run-code-btn::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(0,243,255,0.35),
+            transparent
+        );
+
+    transform: skewX(-25deg);
+
+    transition: left 0.6s ease;
+}
+
+/* Hover */
+#run-code-btn:hover {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,243,255,0.25),
+            rgba(2,6,23,0.85)
+        );
+
+    border-color: #00f3ff;
+
+    box-shadow:
+        0 0 12px rgba(0,243,255,0.7),
+        0 0 30px rgba(0,243,255,0.25),
+        inset 0 0 15px rgba(0,243,255,0.12);
+
+    transform: translateY(-2px);
+}
+
+#run-code-btn:hover::before {
+    transform: translateX(3px);
+}
+
+#run-code-btn:hover::after {
+    left: 130%;
+}
+
+/* Click */
+#run-code-btn:active {
+    transform: scale(0.94);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    #run-code-btn {
+        top: 15px;
+        right: 15px;
+
+        padding: 9px 13px;
+
+        font-size: 10px;
+        letter-spacing: 1.5px;
+
+        gap: 7px;
+    }
+}
     </style>
     <!-- PWA Manifest -->
 <link rel="manifest" href="manifest.json">
@@ -339,6 +476,10 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 </head>
 <body>
+    <!-- RUN CODE BUTTON -->
+<a href="runpy.html" id="run-code-btn">
+    ▶ RUN CODE
+</a>
 
     <!-- LAYER 1: THREE.JS 3D ENGINE -->
     <canvas id="webgl-canvas"></canvas>
