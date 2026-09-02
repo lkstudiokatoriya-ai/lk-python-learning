@@ -17,23 +17,17 @@
 
 ### Q4. ***What are Python tokens? Name their major types.***
 
-### Q5.
-***What is the difference between `int` and `float` data types?***
+### Q5. ***What is the difference between `int` and `float` data types?***
 
-### Q6.
-*What is a Boolean data type in Python? Give an example.*
+### Q6. ***What is a Boolean data type in Python? Give an example.***
 
-### Q7.
-*What is the difference between mutable and immutable data types?*
+### Q7. ***What is the difference between mutable and immutable data types?***
 
-### Q8.
-*What is the use of the `input()` and `print()` functions in Python?*
+### Q8. ***What is the use of the `input()` and `print()` functions in Python?***
 
-### Q9.
-*What is type conversion? Name any four type conversion functions.*
+### Q9. ***What is type conversion? Name any four type conversion functions.***
 
-### Q10.
-What is operator precedence in Python?
+### Q10. ***What is operator precedence in Python?***
 
 ---
 
