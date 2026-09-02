@@ -9,17 +9,13 @@
 
 # 🔹 Short Type Questions
 
-### Q1.
-***What is a variable in Python? Give one example.***
+### Q1. ***What is a variable in Python? Give one example.***
 
-### Q2.
-***What are comments in Python? How are they written?***
+### Q2. ***What are comments in Python? How are they written?***
 
-### Q3.
-***What is the difference between L-value and R-value?***
+### Q3. ***What is the difference between L-value and R-value?***
 
-### Q4.
-***What are Python tokens? Name their major types.***
+### Q4. ***What are Python tokens? Name their major types.***
 
 ### Q5.
 ***What is the difference between `int` and `float` data types?***
