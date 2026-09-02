@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete Python Learning Repository by Lalan Kumar">
+    <meta name="author" content="Lalan Kumar">
+    <title>LK Python Learning | Portfolio</title>
+    
+    <!-- टेलविंड सीएसएस (Tailwind CSS) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- गूगल फोंट्स (Google Fonts: Outfit) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- फॉन्ट ऑसम (Font Awesome for Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- कस्टम टेलविंड कॉन्फ़िगरेशन (Custom Tailwind Config) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#0a0f1c',
+                            800: '#111827',
+                            700: '#1e293b',
+                        },
+                        accent: {
+                            400: '#22d3ee', // सियान (Cyan)
+                            500: '#0ea5e9', // हल्का नीला (Light Blue)
+                            600: '#2563eb', // नीला (Blue)
+                        }
+                    },
+                    animation: {
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 10px rgba(34, 211, 238, 0.2)' },
+                            '100%': { boxShadow: '0 0 30px rgba(34, 211, 238, 0.6)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* बेस प्रीमियम स्टाइलिंग (Base Premium Styling) */
+        body { 
+            background-color: #0a0f1c; 
+            color: #f8fafc; 
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+        
+        /* कस्टम स्क्रॉलबार (Custom Scrollbar) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0f1c; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); }
+        ::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
+
+        /* ग्लास इफ़ेक्ट क्लासेस (Glassmorphism Components) */
+        .glass-nav {
+            background: rgba(10, 15, 28, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(17, 24, 39, 0.6) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(34, 211, 238, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(34, 211, 238, 0.2);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #22d3ee, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* फेड-इन एनिमेशन (Fade-in Animation) */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen selection:bg-accent-400 selection:text-navy-900 font-sans">
+
+    <!-- नेविगेशन (Navigation) -->
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- लोगो (Logo) -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="bg-gradient-to-br from-accent-400 to-accent-600 p-2 rounded-xl shadow-lg shadow-accent-500/20 group-hover:shadow-accent-500/40 transition-all">
+                        <i class="fa-brands fa-python text-2xl text-white"></i>
+                    </div>
+                    <span class="font-extrabold text-xl text-white tracking-wide">LK Python<span class="gradient-text"> Learning</span></span>
+                </div>
+                
+                <!-- डेस्कटॉप लिंक्स (Desktop Links) -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#about" class="text-slate-300 hover:text-accent-400 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:bg-white/5">About</a>
+                    <a href="#roadmap" class="text-slate-300 hover:text-accent-400 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:bg-white/5">Roadmap</a>
+                    <a href="#projects" class="text-slate-300 hover:text-accent-400 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:bg-white/5">Projects</a>
+                </div>
+
+                <!-- एक्शन बटन्स (Action Buttons - Study & Run Code) -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="study.html" class="px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl text-sm font-bold transition-all flex items-center gap-2 group">
+                        <i class="fas fa-book-open text-accent-400 group-hover:scale-110 transition-transform"></i> Study Materials
+                    </a>
+                    <a href="runpy.html" class="px-5 py-2.5 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-400 hover:to-accent-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-accent-500/25 transition-all flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-terminal"></i> Run Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- हीरो सेक्शन (Hero Section) -->
+    <header class="relative pt-36 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col items-center justify-center text-center px-4">
+        
+        <!-- प्रोफाइल फोटो / लोगो (Profile Photo / Logo) -->
+        <div class="relative mb-10 group animate-[slideUp_0.5s_ease-out]">
+            <div class="absolute inset-0 bg-accent-500 rounded-full blur-2xl opacity-30 group-hover:opacity-60 transition duration-700 animate-glow"></div>
+            <div class="relative w-40 h-40 rounded-full p-1 bg-gradient-to-b from-accent-400 to-navy-800 shadow-2xl z-10">
+                <img src="icons/icon-512.png" 
+                     onerror="this.onerror=null; this.src='lalan.jpeg'; this.outerHTML='<div class=\'w-full h-full rounded-full bg-navy-800 flex items-center justify-center text-5xl font-bold text-accent-400 border border-white/10 z-10\'>LK</div>';" 
+                     alt="LK Logo" 
+                     class="w-full h-full rounded-full object-cover bg-navy-900 border-4 border-navy-900">
+            </div>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight fade-in-section">
+            Master <span class="gradient-text">Python</span> With Me
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-medium leading-relaxed fade-in-section">
+            Welcome to my complete Python programming journey. From beginner concepts to advanced projects, everything documented in one premium platform.
+        </p>
+        
+        <!-- मोबाइल और डेस्कटॉप दोनों के लिए मुख्य बटन्स (Main Action Buttons) -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-section w-full sm:w-auto px-4">
+            <a href="study.html" class="px-8 py-4 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold rounded-2xl shadow-lg shadow-accent-500/30 hover:shadow-accent-500/50 transition-all flex items-center justify-center gap-3 transform hover:-translate-y-1">
+                <i class="fas fa-book-open text-xl"></i> Access Study Materials
+            </a>
+            <a href="runpy.html" class="px-8 py-4 glass-panel border border-accent-400/30 text-accent-400 font-bold rounded-2xl hover:bg-accent-400/10 transition-all flex items-center justify-center gap-3 transform hover:-translate-y-1">
+                <i class="fa-solid fa-terminal text-xl"></i> Live Python Compiler
+            </a>
+        </div>
+    </header>
+
+    <!-- मुख्य कंटेंट (Main Content) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- ग्रिड लेआउट (Grid Layout for Info Sections) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+            
+            <!-- मेरे बारे में (About Me Card) -->
+            <section id="about" class="fade-in-section glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden group">
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-accent-600/10 rounded-full blur-3xl group-hover:bg-accent-500/20 transition-all"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-accent-400 shadow-lg">
+                            <i class="fa-solid fa-user-astronaut text-2xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white tracking-wide">About Me</h2>
+                    </div>
+                    <ul class="space-y-4 text-slate-300 font-medium text-lg">
+                        <li class="flex items-center gap-4 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-id-card text-accent-400 w-6 text-center"></i> <span class="text-white font-semibold">Name:</span> Lalan Kumar</li>
+                        <li class="flex items-center gap-4 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-location-dot text-accent-400 w-6 text-center"></i> <span class="text-white font-semibold">Location:</span> Bihar, India</li>
+                        <li class="flex items-center gap-4 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-graduation-cap text-accent-400 w-6 text-center"></i> <span class="text-white font-semibold">Course:</span> Diploma Engineering</li>
+                        <li class="flex items-center gap-4 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-bolt text-accent-400 w-6 text-center"></i> <span class="text-white font-semibold">Branch:</span> Electrical Engineering</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- रिपॉजिटरी का उद्देश्य (Objective Card) -->
+            <section class="fade-in-section glass-card rounded-3xl p-8 md:p-10 relative overflow-hidden group">
+                <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-emerald-600/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-emerald-400 shadow-lg">
+                            <i class="fa-solid fa-bullseye text-2xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white tracking-wide">Platform Objective</h2>
+                    </div>
+                    <p class="mb-8 text-slate-400 font-medium leading-relaxed text-lg">The main purpose of this repository is to organize all Python learning resources into one premium, easy-to-use platform.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-300 font-medium">
+                        <div class="flex items-center gap-3 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-check-circle text-emerald-400"></i> Premium Notes</div>
+                        <div class="flex items-center gap-3 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-check-circle text-emerald-400"></i> Python Programs</div>
+                        <div class="flex items-center gap-3 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-check-circle text-emerald-400"></i> Mini Projects</div>
+                        <div class="flex items-center gap-3 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-check-circle text-emerald-400"></i> Live Compiler</div>
+                        <div class="flex items-center gap-3 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-check-circle text-emerald-400"></i> Interview Q&A</div>
+                        <div class="flex items-center gap-3 bg-navy-900/50 p-3 rounded-xl border border-white/5"><i class="fa-solid fa-check-circle text-emerald-400"></i> PDF Downloads</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- रोडमैप सेक्शन (Roadmap Section) -->
+        <section id="roadmap" class="fade-in-section mb-20">
+            <h2 class="text-4xl font-extrabold text-center text-white mb-12">Learning <span class="gradient-text">Roadmap</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Level 1 -->
+                <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-accent-400 to-accent-600"></div>
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="text-accent-400 text-opacity-50">01.</span> Basics</h3>
+                    <ul class="space-y-4 text-slate-400 font-medium">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-code text-accent-400/50"></i> Variables & Data Types</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-code text-accent-400/50"></i> Operators & Inputs</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-code text-accent-400/50"></i> Conditional Statements</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-code text-accent-400/50"></i> Loops (For, While)</li>
+                    </ul>
+                </div>
+                <!-- Level 2 -->
+                <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-emerald-400 to-emerald-600"></div>
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="text-emerald-400 text-opacity-50">02.</span> Intermediate</h3>
+                    <ul class="space-y-4 text-slate-400 font-medium">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-cogs text-emerald-400/50"></i> Functions & Modules</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-cogs text-emerald-400/50"></i> Lists, Tuples, Sets</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-cogs text-emerald-400/50"></i> Dictionaries</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-cogs text-emerald-400/50"></i> File Handling</li>
+                    </ul>
+                </div>
+                <!-- Level 3 -->
+                <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-purple-400 to-purple-600"></div>
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="text-purple-400 text-opacity-50">03.</span> Advanced</h3>
+                    <ul class="space-y-4 text-slate-400 font-medium">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-rocket text-purple-400/50"></i> Object Oriented Prog.</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-rocket text-purple-400/50"></i> NumPy & Pandas</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-rocket text-purple-400/50"></i> APIs & Web Scraping</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-rocket text-purple-400/50"></i> Real World Projects</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- प्रोजेक्ट्स सेक्शन (Projects Section) -->
+        <section id="projects" class="fade-in-section glass-card rounded-3xl p-8 md:p-12 mb-20">
+            <h2 class="text-4xl font-extrabold text-center text-white mb-12"><i class="fa-solid fa-laptop-code text-accent-400 mr-4"></i>Project <span class="gradient-text">Ideas</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Beginner -->
+                <article class="p-6 bg-navy-900/50 rounded-2xl border border-white/5 hover:border-accent-400/50 transition-colors">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-accent-400"></div> Beginner</h3>
+                    <ul class="space-y-3 text-slate-400 font-medium">
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Calculator</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Digital Clock</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Password Generator</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Currency Converter</li>
+                    </ul>
+                </article>
+                <!-- Intermediate -->
+                <article class="p-6 bg-navy-900/50 rounded-2xl border border-white/5 hover:border-emerald-400/50 transition-colors">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-emerald-400"></div> Intermediate</h3>
+                    <ul class="space-y-3 text-slate-400 font-medium">
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Library Management</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Student Database</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Weather Application</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Quiz System</li>
+                    </ul>
+                </article>
+                <!-- Advanced -->
+                <article class="p-6 bg-navy-900/50 rounded-2xl border border-white/5 hover:border-purple-400/50 transition-colors">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-purple-400"></div> Advanced</h3>
+                    <ul class="space-y-3 text-slate-400 font-medium">
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Face Recognition</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">AI Chatbot</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Data Analytics Platform</li>
+                        <li class="p-2 hover:bg-white/5 rounded-lg transition-colors">Machine Learning Model</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- रूल्स और कोट्स (Rules & Quote Section) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <section class="fade-in-section glass-card rounded-3xl p-8 md:p-10">
+                <h2 class="text-3xl font-bold text-white mb-8">My Learning Rules</h2>
+                <div class="flex flex-wrap gap-4">
+                    <span class="px-5 py-2.5 bg-navy-900 text-slate-300 rounded-xl text-sm font-semibold border border-white/5 shadow-inner flex items-center gap-2"><i class="fa-solid fa-fire text-orange-500"></i> Learn Every Day</span>
+                    <span class="px-5 py-2.5 bg-navy-900 text-slate-300 rounded-xl text-sm font-semibold border border-white/5 shadow-inner flex items-center gap-2"><i class="fa-solid fa-code text-accent-500"></i> Write Clean Code</span>
+                    <span class="px-5 py-2.5 bg-navy-900 text-slate-300 rounded-xl text-sm font-semibold border border-white/5 shadow-inner flex items-center gap-2"><i class="fa-solid fa-keyboard text-slate-400"></i> Practice Daily</span>
+                    <span class="px-5 py-2.5 bg-navy-900 text-slate-300 rounded-xl text-sm font-semibold border border-white/5 shadow-inner flex items-center gap-2"><i class="fa-solid fa-hammer text-yellow-500"></i> Build Real Projects</span>
+                </div>
+            </section>
+            
+            <section class="fade-in-section glass-card !bg-gradient-to-br !from-accent-900/40 !to-navy-800 rounded-3xl p-8 md:p-10 !border-accent-500/20 flex flex-col justify-center items-center text-center">
+                <i class="fa-solid fa-quote-left text-5xl text-accent-400/20 mb-6"></i>
+                <blockquote class="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
+                    "Code every day, learn every day, <span class="text-accent-400">improve every day.</span>"
+                </blockquote>
+                <p class="text-slate-400 font-semibold tracking-widest uppercase text-sm">- The Developer's Mindset</p>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- फूटर (Footer) -->
+    <footer id="contact" class="glass-panel border-t border-white/5 pt-16 pb-8 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-extrabold text-white mb-6">LK Python<span class="text-accent-400"> Learning</span></h3>
+                    <p class="text-slate-400 mb-6 font-medium leading-relaxed">I hope this premium repository helps beginners start their Python programming journey with confidence and ease.</p>
+                    <p class="text-accent-400 font-bold">Keep Learning • Keep Coding 🚀</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-6">Support This Platform</h3>
+                    <ul class="space-y-4 text-slate-400 font-medium">
+                        <li><a href="https://github.com/lkstudiokatoriya-ai/lk-python-learning" class="hover:text-accent-400 transition flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-yellow-500"><i class="fa-solid fa-star"></i></div> Star Repository</a></li>
+                        <li><a href="https://github.com/lkstudiokatoriya-ai/lk-python-learning/fork" class="hover:text-accent-400 transition flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-300"><i class="fa-solid fa-code-branch"></i></div> Fork Repository</a></li>
+                        <li><a href="https://github.com/lkstudiokatoriya-ai/lk-python-learning" class="hover:text-accent-400 transition flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-accent-400"><i class="fa-solid fa-share-nodes"></i></div> Share with Friends</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-6">Connect With Me</h3>
+                    <div class="flex gap-4">
+                        <a href="https://github.com/lkstudiokatoriya-ai" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-white hover:text-navy-900 transition-all text-xl shadow-lg"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://youtube.com/@polytechnic_hub" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all text-xl shadow-lg"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/in/lalankumarbanka" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all text-xl shadow-lg"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://t.me/polytechnic_Hub" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-accent-500 hover:text-white hover:border-accent-500 transition-all text-xl shadow-lg"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-slate-500 text-sm font-medium">
+                <p>Designed with <i class="fa-solid fa-heart text-red-500 mx-1"></i> by <strong class="text-slate-300">Lalan Kumar</strong></p>
+                <p class="mt-2">© <span id="current-year"></span> LK Python Learning. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- बैक टू टॉप बटन (Back to top button) -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-gradient-to-tr from-accent-600 to-accent-400 text-white w-14 h-14 rounded-full flex items-center justify-center text-xl shadow-[0_0_20px_rgba(34,211,238,0.4)] opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 z-50">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- कस्टम जावास्क्रिप्ट (Custom JavaScript) -->
+    <script>
+        // 1. फूटर में वर्तमान वर्ष सेट करें (Set Current Year in Footer)
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 2. स्क्रॉल एनिमेशन (Scroll Animation via Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // केवल एक बार एनिमेट करें
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // 3. बैक टू टॉप बटन लॉजिक (Back to Top Button Logic)
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 4. वेबसाइट लोड होने पर वेलकम मैसेज (Welcome Message)
+        window.addEventListener("load", function(){
+            console.log("Premium Platform Loaded Successfully - Lalan Kumar");
+            if(!localStorage.getItem("visited")){
+                console.log("Welcome to LK Python Learning Repo!");
+                localStorage.setItem("visited", "true");
+            }
+        });
+    </script>
+    <script src="install.js"></script>
+    <script src="update.js"></script>
+</body>
+</html>
