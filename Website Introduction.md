@@ -38,31 +38,31 @@ resources step-by-step.
 ### 🏠 Home
 
 <p align="center">
-  <img src="icons/image1.png" width="850" alt="Website Home">
+  <img src="icons/image-1.png" width="850" alt="Website Home">
 </p>
 
 ### 📚 Learning Interface
 
 <p align="center">
-  <img src="icons/image2.png" width="850" alt="Learning Interface">
+  <img src="icons/image-2.png" width="850" alt="Learning Interface">
 </p>
 
 ### 💻 Coding Section
 
 <p align="center">
-  <img src="icons/image3.png" width="850" alt="Coding Section">
+  <img src="icons/image-3.png" width="850" alt="Coding Section">
 </p>
 
 ### 📝 Practice Section
 
 <p align="center">
-  <img src="icons/image4.png" width="850" alt="Practice Section">
+  <img src="icons/image-4.png" width="850" alt="Practice Section">
 </p>
 
 ### 🎯 Learning Experience
 
 <p align="center">
-  <img src="icons/image5.png" width="850" alt="Learning Experience">
+  <img src="icons/image-5.png" width="850" alt="Learning Experience">
 </p>
 
 ---
