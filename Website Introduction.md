@@ -1,69 +1,72 @@
 # 🐍 LK PYTHON LEARNING
 
 <p align="center">
-  <img src="icons/image1.png" width="900" alt="LK Python Learning Preview">
+  <img src="icons/image-1.png" width="900" alt="LK Python Learning">
 </p>
 
-<h2 align="center">🚀 Learn Python. Practice Coding. Build Your Future.</h2>
+<h1 align="center">
+  🚀 LK Python Learning
+</h1>
 
 <p align="center">
-  A modern and interactive Python learning platform by
-  <strong>LALAN KUMAR</strong>.
+  <strong>Learn Python • Practice Coding • Build Your Skills</strong>
 </p>
 
 <p align="center">
+  A modern, interactive and beginner-friendly Python
+  learning platform by <strong>LALAN KUMAR</strong>.
+</p>
 
+<p align="center">
+  🌐
   <a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/">
-    🌐 LIVE WEBSITE
+    <strong>VISIT WEBSITE</strong>
   </a>
+</p>
 
+---
+
+## 📱 Website Screenshots
+
+<p align="center">
+  <img src="icons/image-1.png" width="180" alt="Screenshot 1">
+  &nbsp;
+  <img src="icons/image-2.png" width="180" alt="Screenshot 2">
+  &nbsp;
+  <img src="icons/image-3.png" width="180" alt="Screenshot 3">
+  &nbsp;
+  <img src="icons/image-4.png" width="180" alt="Screenshot 4">
+  &nbsp;
+  <img src="icons/image-5.png" width="180" alt="Screenshot 5">
 </p>
 
 ---
 
 ## 🌐 About The Website
 
-**LK Python Learning** is a modern, interactive and
-beginner-friendly educational website designed to make
-Python programming simple, practical and easy to understand.
+**LK Python Learning** is a modern and interactive
+educational website created for students who want to learn
+Python programming in a simple and practical way.
 
-The platform provides a clean learning environment where
-students can explore Python concepts, examples and coding
-resources step-by-step.
+The platform is designed to provide a clean learning
+experience with easy explanations, coding practice,
+examples and useful learning resources.
 
 ---
 
-## 📸 Website Preview
+## 🎯 Our Goal
 
-### 🏠 Home
+The main goal of **LK Python Learning** is to make Python
+programming:
 
-<p align="center">
-  <img src="icons/image-1.png" width="850" alt="Website Home">
-</p>
+- ✅ Simple
+- ✅ Practical
+- ✅ Easy to Understand
+- ✅ Beginner Friendly
+- ✅ Interesting to Learn
 
-### 📚 Learning Interface
-
-<p align="center">
-  <img src="icons/image-2.png" width="850" alt="Learning Interface">
-</p>
-
-### 💻 Coding Section
-
-<p align="center">
-  <img src="icons/image-3.png" width="850" alt="Coding Section">
-</p>
-
-### 📝 Practice Section
-
-<p align="center">
-  <img src="icons/image-4.png" width="850" alt="Practice Section">
-</p>
-
-### 🎯 Learning Experience
-
-<p align="center">
-  <img src="icons/image-5.png" width="850" alt="Learning Experience">
-</p>
+We believe that programming becomes easier when students
+**learn concepts and practice coding together.**
 
 ---
 
@@ -71,31 +74,29 @@ resources step-by-step.
 
 | Feature | Description |
 |---|---|
-| 🐍 Python Learning | Learn Python from basics |
-| 💻 Coding | Practice programming concepts |
+| 🐍 Python Learning | Learn Python programming step-by-step |
+| 💻 Coding Practice | Practice programming concepts |
 | 📚 Study Material | Organized learning resources |
-| 📝 Practice | Improve programming skills |
-| 🎯 Beginner Friendly | Simple and easy explanations |
-| 📱 Responsive | Works across different devices |
+| 📝 Practice | Improve coding knowledge |
+| 🎯 Beginner Friendly | Simple explanations for beginners |
+| 📱 Responsive | Designed for different screen sizes |
 | ⚡ Modern UI | Clean and interactive interface |
+| 🌐 Web Based | Accessible directly from a browser |
 
 ---
 
-## 🎯 Our Mission
+## 📚 Learning Experience
 
-> **Make Python Programming Simple, Practical & Accessible.**
-
-LK Python Learning is created with the goal of helping
-students understand programming through practical learning
-instead of only theoretical study.
-
----
-
-## 🛠️ Technology
+LK Python Learning focuses on practical and structured
+learning.
 
 ```text
-HTML5
-CSS3
-JavaScript
-Markdown
-GitHub Pages
+📖 Learn
+   ↓
+💡 Understand
+   ↓
+💻 Practice
+   ↓
+🧠 Improve
+   ↓
+🚀 Build Skills
