@@ -27,7 +27,7 @@
 
 <div style="display:flex; overflow-x:auto; gap:12px; padding:10px 0;">
 
-<img src="icons/image-1.png"
+<img src="Screenshot_20260903-061219.png"
      width="210"
      style="border-radius:18px;"
      alt="Screenshot 1">
