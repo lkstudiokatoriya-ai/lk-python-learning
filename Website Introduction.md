@@ -51,7 +51,22 @@
      width="210"
      style="border-radius:18px;"
      alt="Screenshot 5">
-
+     
+<img src="icons/image-6.png"
+     width="210"
+     style="border-radius:18px;"
+     alt="Screenshot 6">
+     
+<img src="icons/image-7.png"
+     width="210"
+     style="border-radius:18px;"
+     alt="Screenshot 7">
+     
+<img src="icons/image-8.png"
+     width="210"
+     style="border-radius:18px;"
+     alt="Screenshot 8">
+     
 </div>
 
 > 📱 Swipe horizontally to explore all screenshots.
