@@ -1,75 +1,175 @@
 # 🐍 LK PYTHON LEARNING
 
 <p align="center">
-  <img src="Screenshot_20260903-061219.png" width="900" alt="LK Python Learning">
+
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/Screenshot_20260903-061219.png">
+
+<img
+src="https://lkstudiokatoriya-ai.github.io/lk-python-learning/Screenshot_20260903-061219.png"
+alt="LK Python Learning"
+width="900"
+>
+
+</a>
+
 </p>
 
-<h1 align="center">🚀 LK Python Learning</h1>
+<h1 align="center">
+🚀 LK Python Learning
+</h1>
 
 <p align="center">
-  <strong>Learn Python • Practice Coding • Build Your Skills</strong>
+<strong>
+Learn Python • Practice Coding • Build Your Skills
+</strong>
 </p>
 
 <p align="center">
-  A modern, interactive and beginner-friendly Python
-  learning platform by <strong>LALAN KUMAR</strong>.
+A modern, interactive and beginner-friendly Python
+learning platform by <strong>LALAN KUMAR</strong>.
 </p>
 
 <p align="center">
-  <a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/">
-    🌐 <strong>VISIT WEBSITE</strong>
-  </a>
+
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/">
+
+🌐 <strong>VISIT WEBSITE</strong>
+
+</a>
+
 </p>
 
 ---
 
 ## 📱 Website Screenshots
 
-<div style="display:flex; overflow-x:auto; gap:12px; padding:10px 0;">
+<p align="center">
+<strong>📸 Explore the Website</strong>
+</p>
 
-<img src="Screenshot_20260903-061219.png"
-     width="210"
-     style="border-radius:18px;"
-     alt="Screenshot 1">
+<table>
+<tr>
 
-<img src="icons/image-2.png"
-     width="210"
-     style="border-radius:18px;"
-     alt="Screenshot 2">
+<!-- Screenshot 2 -->
 
-<img src="icons/image-3.png"
-     width="210"
-     style="border-radius:18px;"
-     alt="Screenshot 3">
+<td align="center">
 
-<img src="icons/image-4.png"
-     width="210"
-     style="border-radius:18px;"
-     alt="Screenshot 4">
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-2.png">
 
-<img src="icons/image-5.png"
-     width="210"
-     style="border-radius:18px;"
-     alt="Screenshot 5">
-     
-<img src="icons/image-6.png"
-     width="210"
-     style="border-radius:18px;"
-     alt="Screenshot 6">
-     
-<img src="icons/image-7.png"
-     width="210"
-     style="border-radius:18px;"
-     alt="Screenshot 7">
-     
-<img src="icons/image-8.png"
-     width="210"
-     style="border-radius:18px;"
-     alt="Screenshot 8">
-     
-</div>
+<img
+src="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-2.png"
+height="360"
+alt="Screenshot 2"
+>
 
-> 📱 Swipe horizontally to explore all screenshots.
+</a>
+
+</td>
+
+<!-- Screenshot 3 -->
+
+<td align="center">
+
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-3.png">
+
+<img
+src="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-3.png"
+height="360"
+alt="Screenshot 3"
+>
+
+</a>
+
+</td>
+
+<!-- Screenshot 4 -->
+
+<td align="center">
+
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-4.png">
+
+<img
+src="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-4.png"
+height="360"
+alt="Screenshot 4"
+>
+
+</a>
+
+</td>
+
+<!-- Screenshot 5 -->
+
+<td align="center">
+
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-5.png">
+
+<img
+src="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-5.png"
+height="360"
+alt="Screenshot 5"
+>
+
+</a>
+
+</td>
+
+<!-- Screenshot 6 -->
+
+<td align="center">
+
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-6.png">
+
+<img
+src="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-6.png"
+height="360"
+alt="Screenshot 6"
+>
+
+</a>
+
+</td>
+
+<!-- Screenshot 7 - LANDSCAPE -->
+
+<td align="center">
+
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-7.png">
+
+<img
+src="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-7.png"
+height="360"
+alt="Screenshot 7 - Landscape"
+>
+
+</a>
+
+</td>
+
+<!-- Screenshot 8 -->
+
+<td align="center">
+
+<a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-8.png">
+
+<img
+src="https://lkstudiokatoriya-ai.github.io/lk-python-learning/icons/image-8.png"
+height="360"
+alt="Screenshot 8"
+>
+
+</a>
+
+</td>
+
+</tr>
+</table>
+
+<p align="center">
+
+👆 <strong>Click any screenshot to view it in full size.</strong>
+
+</p>
 
 ---
 
@@ -116,11 +216,11 @@ To make Python programming:
 
 ```text
 📖 LEARN
-    ↓
+   ↓
 💡 UNDERSTAND
-    ↓
+   ↓
 💻 PRACTICE
-    ↓
+   ↓
 🧠 IMPROVE
-    ↓
+   ↓
 🚀 BUILD SKILLS
