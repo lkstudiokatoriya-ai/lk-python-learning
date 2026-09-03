@@ -1,7 +1,7 @@
 # 🐍 LK PYTHON LEARNING
 
 <p align="center">
-  <img src="icons/image-1.png" width="900" alt="LK Python Learning">
+  <img src="Screenshot_20260903-061219.png" width="900" alt="LK Python Learning">
 </p>
 
 <h1 align="center">🚀 LK Python Learning</h1>
