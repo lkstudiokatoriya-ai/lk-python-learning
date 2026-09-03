@@ -4,9 +4,7 @@
   <img src="icons/image-1.png" width="900" alt="LK Python Learning">
 </p>
 
-<h1 align="center">
-  🚀 LK Python Learning
-</h1>
+<h1 align="center">🚀 LK Python Learning</h1>
 
 <p align="center">
   <strong>Learn Python • Practice Coding • Build Your Skills</strong>
@@ -18,9 +16,8 @@
 </p>
 
 <p align="center">
-  🌐
   <a href="https://lkstudiokatoriya-ai.github.io/lk-python-learning/">
-    <strong>VISIT WEBSITE</strong>
+    🌐 <strong>VISIT WEBSITE</strong>
   </a>
 </p>
 
@@ -28,45 +25,60 @@
 
 ## 📱 Website Screenshots
 
-<p align="center">
-  <img src="icons/image-1.png" width="180" alt="Screenshot 1">
-  &nbsp;
-  <img src="icons/image-2.png" width="180" alt="Screenshot 2">
-  &nbsp;
-  <img src="icons/image-3.png" width="180" alt="Screenshot 3">
-  &nbsp;
-  <img src="icons/image-4.png" width="180" alt="Screenshot 4">
-  &nbsp;
-  <img src="icons/image-5.png" width="180" alt="Screenshot 5">
-</p>
+<div style="display:flex; overflow-x:auto; gap:12px; padding:10px 0;">
+
+<img src="icons/image-1.png"
+     width="210"
+     style="border-radius:18px;"
+     alt="Screenshot 1">
+
+<img src="icons/image-2.png"
+     width="210"
+     style="border-radius:18px;"
+     alt="Screenshot 2">
+
+<img src="icons/image-3.png"
+     width="210"
+     style="border-radius:18px;"
+     alt="Screenshot 3">
+
+<img src="icons/image-4.png"
+     width="210"
+     style="border-radius:18px;"
+     alt="Screenshot 4">
+
+<img src="icons/image-5.png"
+     width="210"
+     style="border-radius:18px;"
+     alt="Screenshot 5">
+
+</div>
+
+> 📱 Swipe horizontally to explore all screenshots.
 
 ---
 
 ## 🌐 About The Website
 
 **LK Python Learning** is a modern and interactive
-educational website created for students who want to learn
+educational website designed for students who want to learn
 Python programming in a simple and practical way.
 
-The platform is designed to provide a clean learning
-experience with easy explanations, coding practice,
-examples and useful learning resources.
+The platform provides an organized learning experience
+with easy explanations, coding practice and useful
+programming resources.
 
 ---
 
 ## 🎯 Our Goal
 
-The main goal of **LK Python Learning** is to make Python
-programming:
+To make Python programming:
 
-- ✅ Simple
-- ✅ Practical
-- ✅ Easy to Understand
-- ✅ Beginner Friendly
-- ✅ Interesting to Learn
-
-We believe that programming becomes easier when students
-**learn concepts and practice coding together.**
+- 🐍 Simple
+- 💡 Easy to Understand
+- 💻 Practical
+- 📚 Beginner Friendly
+- 🚀 Interesting to Learn
 
 ---
 
@@ -74,29 +86,26 @@ We believe that programming becomes easier when students
 
 | Feature | Description |
 |---|---|
-| 🐍 Python Learning | Learn Python programming step-by-step |
+| 🐍 Python Learning | Step-by-step Python learning |
 | 💻 Coding Practice | Practice programming concepts |
 | 📚 Study Material | Organized learning resources |
-| 📝 Practice | Improve coding knowledge |
-| 🎯 Beginner Friendly | Simple explanations for beginners |
-| 📱 Responsive | Designed for different screen sizes |
-| ⚡ Modern UI | Clean and interactive interface |
-| 🌐 Web Based | Accessible directly from a browser |
+| 📝 Practice | Improve programming skills |
+| 🎯 Beginner Friendly | Easy explanations |
+| 📱 Responsive | Mobile & desktop friendly |
+| ⚡ Modern UI | Clean interface |
+| 🌐 Web Based | Access from any browser |
 
 ---
 
-## 📚 Learning Experience
-
-LK Python Learning focuses on practical and structured
-learning.
+## 📚 Learning Flow
 
 ```text
-📖 Learn
-   ↓
-💡 Understand
-   ↓
-💻 Practice
-   ↓
-🧠 Improve
-   ↓
-🚀 Build Skills
+📖 LEARN
+    ↓
+💡 UNDERSTAND
+    ↓
+💻 PRACTICE
+    ↓
+🧠 IMPROVE
+    ↓
+🚀 BUILD SKILLS
