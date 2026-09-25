@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d1117">
+    <title>Desktop Python IDE | Live Compiler</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CodeMirror for the Editor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/darcula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/dialog/dialog.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/search/matchesonscrollbar.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        ide: {
+                            bg: '#0d1117',
+                            sidebar: '#161b22',
+                            panel: '#010409',
+                            border: '#30363d',
+                            accent: '#2f81f7',
+                            hover: '#21262d',
+                            text: '#c9d1d9',
+                            muted: '#8b949e',
+                            terminalBg: '#000000',
+                            pythonBlue: '#3776AB',
+                            pythonYellow: '#FFD43B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Full-Screen Layout */
+        html, body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Resizable Layout System */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 48px - 40px); /* header - footer */
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            width: 250px;
+            min-width: 150px;
+            max-width: 400px;
+            background-color: #161b22;
+            border-right: 1px solid #30363d;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-item {
+            padding: 4px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #8b949e;
+            user-select: none;
+        }
+
+        .file-item:hover {
+            background-color: #21262d;
+            color: #c9d1d9;
+        }
+
+        .file-item.active {
+            background-color: #1f6feb26;
+            color: #2f81f7;
+            border-left: 2px solid #2f81f7;
+        }
+
+        /* Resizer Handles */
+        .resizer-horizontal {
+            width: 4px;
+            background-color: #30363d;
+            cursor: col-resize;
+            z-index: 10;
+        }
+        
+        .resizer-horizontal:hover, .resizer-horizontal:active {
+            background-color: #2f81f7;
+        }
+
+        .resizer-vertical {
+            height: 4px;
+            background-color: #30363d;
+            cursor: row-resize;
+            z-index: 10;
+        }
+        
+        .resizer-vertical:hover, .resizer-vertical:active {
+            background-color: #2f81f7;
+        }
+
+        /* Editor Area */
+        #editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+            background-color: #0d1117;
+        }
+
+        /* Editor Tabs */
+        .editor-tabs {
+            display: flex;
+            background-color: #010409;
+            border-bottom: 1px solid #30363d;
+            overflow-x: auto;
+            flex-shrink: 0;
+        }
+        
+        .editor-tabs::-webkit-scrollbar { height: 0px; }
+
+        .tab {
+            padding: 8px 16px;
+            font-size: 13px;
+            color: #8b949e;
+            background-color: #010409;
+            border-right: 1px solid #30363d;
+            border-top: 2px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+        }
+
+        .tab.active {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            border-top: 2px solid #2f81f7;
+        }
+
+        .tab-close {
+            opacity: 0;
+            padding: 2px;
+            border-radius: 4px;
+        }
+        
+        .tab:hover .tab-close { opacity: 1; }
+        .tab-close:hover { background-color: #30363d; }
+
+        /* CodeMirror Customization */
+        .CodeMirror {
+            flex: 1;
+            height: auto !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 14px;
+            background-color: #0d1117 !important;
+        }
+        
+        .CodeMirror-gutters {
+            background-color: #0d1117 !important;
+            border-right: 1px solid #30363d !important;
+        }
+        
+        .CodeMirror-linenumber { color: #484f58 !important; }
+        
+        /* Terminal Area */
+        #terminal-panel {
+            width: 40%;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            background-color: #000000;
+            border-left: 1px solid #30363d;
+        }
+
+        #terminal-output {
+            flex: 1;
+            padding: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #cccccc;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        #terminal-output::-webkit-scrollbar { width: 8px; }
+        #terminal-output::-webkit-scrollbar-track { background: #000; }
+        #terminal-output::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+        /* Terminal formatting */
+        .term-prompt { color: #3fb950; font-weight: bold; }
+        .term-error { color: #f85149; }
+        .term-sys { color: #58a6ff; }
+        .term-input-line { display: flex; align-items: center; gap: 8px; }
+        .term-input { background: transparent; border: none; color: #fff; font-family: inherit; font-size: inherit; flex: 1; outline: none; }
+
+        /* Footer Toolbar */
+        footer {
+            height: 40px;
+            background-color: #161b22;
+            border-top: 1px solid #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        .toolbar-btn {
+            background: transparent;
+            border: none;
+            color: #c9d1d9;
+            padding: 4px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .toolbar-btn:hover { background-color: #30363d; }
+        
+        .btn-primary { background-color: #238636; color: #fff; }
+        .btn-primary:hover { background-color: #2ea043; }
+        .btn-danger { background-color: #da3633; color: #fff; }
+        .btn-danger:hover { background-color: #f85149; }
+
+        /* Command Palette Modal */
+        #cmd-palette {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            max-width: 90vw;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            box-shadow: 0 16px 32px rgba(0,0,0,0.5);
+            z-index: 100;
+            overflow: hidden;
+        }
+        
+        #cmd-palette.active { display: block; }
+        
+        .cmd-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            color: #c9d1d9;
+            font-size: 13px;
+        }
+        .cmd-item:hover, .cmd-item.selected {
+            background-color: #1f6feb26;
+            color: #2f81f7;
+        }
+        
+        /* Backdrop */
+        #modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 90;
+            backdrop-filter: blur(2px);
+        }
+        #modal-backdrop.active { display: block; }
+
+        /* Tooltip hack for native elements */
+        [title] { cursor: help; }
+        
+        /* Status pulse */
+        @keyframes statusPulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .status-running { color: #e3b341; animation: statusPulse 1.5s infinite; }
+        .status-ready { color: #3fb950; }
+        .status-error { color: #f85149; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="h-12 bg-ide-panel border-b border-ide-border flex items-center justify-between px-4 flex-shrink-0 z-20">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="text-ide-muted hover:text-white transition-colors" title="Home">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="flex items-center gap-2">
+                <i class="fab fa-python text-xl text-ide-pythonBlue"></i>
+                <h1 class="text-white font-bold text-sm tracking-wide">PYTHON LIVE COMPILER</h1>
+            </div>
+        </div>
+        
+        <!-- Status Indicator -->
+        <div class="flex items-center gap-2 bg-ide-sidebar px-3 py-1 rounded-md border border-ide-border text-xs font-mono">
+            <i class="fas fa-circle text-[8px]" id="status-icon"></i>
+            <span id="status-text" class="text-ide-muted">Initializing...</span>
+        </div>
+        
+        <div class="flex items-center gap-2">
+            <button class="toolbar-btn" onclick="ide.toggleFullscreen()" title="Fullscreen (F11)">
+                <i class="fas fa-expand"></i>
+            </button>
+            <button class="toolbar-btn" onclick="ide.openCommandPalette()" title="Command Palette (Ctrl+Shift+P)">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-layout">
+        
+        <!-- Sidebar: File Explorer -->
+        <aside id="sidebar">
+            <div class="px-4 py-2 border-b border-ide-border flex items-center justify-between text-xs font-bold text-ide-text uppercase tracking-wider">
+                <span>Explorer</span>
+                <div class="flex gap-2">
+                    <button class="hover:text-white text-ide-muted" onclick="ide.createNewFile()" title="New File">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="hover:text-white text-ide-muted" onclick="document.getElementById('file-upload').click()" title="Upload .py File">
+                        <i class="fas fa-upload"></i>
+                    </button>
+                    <input type="file" id="file-upload" accept=".py" class="hidden" onchange="ide.handleFileUpload(event)">
+                </div>
+            </div>
+            <div id="file-list" class="py-2 overflow-y-auto flex-1">
+                <!-- Populated via JS -->
+            </div>
+        </aside>
+
+        <!-- Vertical Resizer -->
+        <div class="resizer-horizontal" id="resizer-sidebar"></div>
+
+        <!-- Editor Area -->
+        <main id="editor-container">
+            <div class="editor-tabs" id="editor-tabs">
+                <!-- Populated via JS -->
+            </div>
+            
+            <!-- CodeMirror mounts here -->
+            <textarea id="code-editor"></textarea>
+        </main>
+
+        <!-- Vertical Resizer -->
+        <div class="resizer-horizontal" id="resizer-terminal"></div>
+
+        <!-- Terminal Area -->
+        <aside id="terminal-panel">
+            <div class="px-4 py-2 border-b border-ide-border bg-ide-sidebar flex items-center justify-between text-xs font-bold text-ide-text uppercase tracking-wider">
+                <span class="flex items-center gap-2"><i class="fas fa-terminal"></i> Terminal</span>
+                <div class="flex gap-2">
+                    <button class="hover:text-white text-ide-muted" onclick="ide.clearTerminal()" title="Clear Terminal (Ctrl+L)">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="terminal-output" onclick="ide.focusTerminal()">
+                <div class="term-sys">Python IDE Environment Initialized. Waiting for engine...</div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Footer Toolbar -->
+    <footer>
+        <div class="flex gap-2 items-center">
+            <button class="toolbar-btn btn-primary" onclick="ide.runCode()" title="Run Code (Ctrl+Enter)">
+                <i class="fas fa-play"></i> Run
+            </button>
+            <button class="toolbar-btn btn-danger" onclick="ide.stopExecution()" id="btn-stop" disabled title="Stop Execution">
+                <i class="fas fa-stop"></i> Stop
+            </button>
+        </div>
+        
+        <div class="flex gap-2 items-center text-ide-muted font-mono">
+            <span id="cursor-position">Ln 1, Col 1</span>
+            <span class="mx-2">|</span>
+            <span>Python 3</span>
+            <span class="mx-2">|</span>
+            <span>UTF-8</span>
+        </div>
+
+        <div class="flex gap-2 items-center">
+            <button class="toolbar-btn" onclick="ide.saveFile()" title="Save (Ctrl+S)">
+                <i class="fas fa-save"></i> Save
+            </button>
+            <button class="toolbar-btn" onclick="ide.downloadFile()" title="Download current file">
+                <i class="fas fa-download"></i> Download
+            </button>
+        </div>
+    </footer>
+
+    <!-- Command Palette Modal -->
+    <div id="modal-backdrop" onclick="ide.closeCommandPalette()"></div>
+    <div id="cmd-palette">
+        <div class="p-3 border-b border-ide-border">
+            <input type="text" id="cmd-input" class="w-full bg-ide-panel border border-ide-border rounded px-3 py-2 text-white focus:outline-none focus:border-ide-accent font-sans text-sm" placeholder="Type a command...">
+        </div>
+        <div id="cmd-list" class="max-h-64 overflow-y-auto py-1">
+            <!-- Populated via JS -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/search/search.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/search/searchcursor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/dialog/dialog.min.js"></script>
+    
+    <!-- Pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+
+    <script>
+        // --- IDE State Management ---
+        const state = {
+            files: {},
+            activeFileName: 'main.py',
+            pyodide: null,
+            isRunning: false,
+            inputResolve: null,
+            terminalHistory: []
+        };
+
+        const defaultCode = `print("Hello, Python IDE!")\n\n# Try user input\nname = input("Enter your name: ")\nprint(f"Welcome, {name}!")\n\n# Simple loop\nfor i in range(3):\n    print(f"Count: {i}")\n`;
+
+        // --- DOM Elements ---
+        const elements = {
+            terminal: document.getElementById('terminal-output'),
+            fileList: document.getElementById('file-list'),
+            editorTabs: document.getElementById('editor-tabs'),
+            statusIcon: document.getElementById('status-icon'),
+            statusText: document.getElementById('status-text'),
+            btnStop: document.getElementById('btn-stop'),
+            cursorPos: document.getElementById('cursor-position'),
+            cmdPalette: document.getElementById('cmd-palette'),
+            cmdBackdrop: document.getElementById('modal-backdrop'),
+            cmdInput: document.getElementById('cmd-input'),
+            cmdList: document.getElementById('cmd-list')
+        };
+
+        // --- Initialize CodeMirror ---
+        const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'python',
+            theme: 'darcula',
+            lineNumbers: true,
+            indentUnit: 4,
+            tabSize: 4,
+            lineWrapping: false, // Desktop usually prefers horizontal scrolling
+            autoCloseBrackets: true,
+            extraKeys: {
+                "Tab": function(cm) { cm.replaceSelection("    ", "end"); },
+                "Ctrl-Enter": function(cm) { ide.runCode(); },
+                "Cmd-Enter": function(cm) { ide.runCode(); },
+                "Ctrl-S": function(cm) { ide.saveFile(); },
+                "Cmd-S": function(cm) { ide.saveFile(); }
+            }
+        });
+
+        editor.on('cursorActivity', () => {
+            const pos = editor.getCursor();
+            elements.cursorPos.textContent = `Ln ${pos.line + 1}, Col ${pos.ch + 1}`;
+        });
+
+        editor.on('change', () => {
+            if(state.activeFileName && state.files[state.activeFileName]) {
+                state.files[state.activeFileName].content = editor.getValue();
+                state.files[state.activeFileName].modified = true;
+                ide.renderTabs();
+            }
+        });
+
+        // --- IDE Core Functions ---
+        const ide = {
+            
+            init: async () => {
+                ide.loadFilesFromStorage();
+                ide.renderSidebar();
+                ide.renderTabs();
+                ide.switchFile(state.activeFileName);
+                ide.setupResizers();
+                ide.setupKeyboardShortcuts();
+                
+                ide.updateStatus('loading', 'Loading Engine...');
+                try {
+                    await ide.initPython();
+                    ide.updateStatus('ready', 'Python Ready');
+                    ide.printToTerminal('Python 3 environment ready. Type code and click Run.', 'term-sys');
+                } catch (e) {
+                    ide.updateStatus('error', 'Engine Error');
+                    ide.printToTerminal('Failed to load Python environment.', 'term-error');
+                }
+            },
+
+            // --- File Management ---
+            loadFilesFromStorage: () => {
+                try {
+                    const stored = localStorage.getItem('ide_files');
+                    if (stored) {
+                        state.files = JSON.parse(stored);
+                        if(Object.keys(state.files).length === 0) throw new Error("Empty storage");
+                    } else {
+                        throw new Error("No storage");
+                    }
+                } catch (e) {
+                    state.files = {
+                        'main.py': { content: defaultCode, modified: false }
+                    };
+                }
+                
+                const storedActive = localStorage.getItem('ide_active_file');
+                if (storedActive && state.files[storedActive]) {
+                    state.activeFileName = storedActive;
+                } else {
+                    state.activeFileName = Object.keys(state.files)[0] || 'main.py';
+                }
+            },
+
+            saveFile: () => {
+                if(state.activeFileName) {
+                    state.files[state.activeFileName].modified = false;
+                    localStorage.setItem('ide_files', JSON.stringify(state.files));
+                    localStorage.setItem('ide_active_file', state.activeFileName);
+                    ide.renderTabs();
+                    
+                    // Temporary visual feedback
+                    const orig = elements.statusText.textContent;
+                    elements.statusText.textContent = 'Saved';
+                    setTimeout(() => elements.statusText.textContent = orig, 1000);
+                }
+            },
+
+            createNewFile: () => {
+                let name = prompt("Enter file name (e.g., test.py):", "new_file.py");
+                if (!name) return;
+                if (!name.endsWith('.py')) name += '.py';
+                
+                if (state.files[name]) {
+                    alert("File already exists.");
+                    return;
+                }
+                
+                state.files[name] = { content: '# New file\n', modified: false };
+                ide.renderSidebar();
+                ide.switchFile(name);
+                ide.saveFile();
+            },
+
+            deleteFile: (filename, event) => {
+                event.stopPropagation();
+                if(Object.keys(state.files).length <= 1) {
+                    alert("Cannot delete the last file.");
+                    return;
+                }
+                if(confirm(`Delete ${filename}?`)) {
+                    delete state.files[filename];
+                    if (state.activeFileName === filename) {
+                        state.activeFileName = Object.keys(state.files)[0];
+                    }
+                    ide.renderSidebar();
+                    ide.switchFile(state.activeFileName);
+                    ide.saveFile();
+                }
+            },
+
+            switchFile: (filename) => {
+                if (!state.files[filename]) return;
+                state.activeFileName = filename;
+                
+                // Temporarily disable change event to prevent marking as modified on load
+                const content = state.files[filename].content;
+                editor.setValue(content);
+                
+                ide.renderSidebar();
+                ide.renderTabs();
+                localStorage.setItem('ide_active_file', filename);
+            },
+
+            downloadFile: () => {
+                if(!state.activeFileName) return;
+                const content = editor.getValue();
+                const blob = new Blob([content], { type: 'text/x-python' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = state.activeFileName;
+                a.click();
+                URL.revokeObjectURL(url);
+            },
+
+            handleFileUpload: (event) => {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    let filename = file.name;
+                    if(state.files[filename]) {
+                        filename = 'uploaded_' + filename;
+                    }
+                    state.files[filename] = { content: e.target.result, modified: false };
+                    ide.renderSidebar();
+                    ide.switchFile(filename);
+                    ide.saveFile();
+                };
+                reader.readAsText(file);
+                event.target.value = ''; // Reset input
+            },
+
+            // --- UI Rendering ---
+            renderSidebar: () => {
+                elements.fileList.innerHTML = '';
+                Object.keys(state.files).sort().forEach(filename => {
+                    const div = document.createElement('div');
+                    div.className = `file-item ${filename === state.activeFileName ? 'active' : ''}`;
+                    div.onclick = () => ide.switchFile(filename);
+                    
+                    div.innerHTML = `
+                        <i class="fab fa-python text-ide-pythonBlue"></i>
+                        <span class="flex-1 truncate">${filename}</span>
+                        <i class="fas fa-times text-xs opacity-0 hover:text-white" style="${filename === state.activeFileName ? 'opacity:0.5' : ''}" onclick="ide.deleteFile('${filename}', event)" title="Delete"></i>
+                    `;
+                    
+                    // Hover effect for delete icon
+                    div.onmouseenter = () => div.querySelector('.fa-times').style.opacity = '1';
+                    div.onmouseleave = () => { if(filename !== state.activeFileName) div.querySelector('.fa-times').style.opacity = '0'; else div.querySelector('.fa-times').style.opacity = '0.5'; };
+                    
+                    elements.fileList.appendChild(div);
+                });
+            },
+
+            renderTabs: () => {
+                elements.editorTabs.innerHTML = '';
+                Object.keys(state.files).sort().forEach(filename => {
+                    const isMod = state.files[filename].modified;
+                    const div = document.createElement('div');
+                    div.className = `tab ${filename === state.activeFileName ? 'active' : ''}`;
+                    div.onclick = () => ide.switchFile(filename);
+                    
+                    div.innerHTML = `
+                        <i class="fab fa-python text-ide-pythonBlue text-xs"></i>
+                        <span>${filename}${isMod ? '<span class="text-white ml-1">*</span>' : ''}</span>
+                    `;
+                    elements.editorTabs.appendChild(div);
+                });
+            },
+
+            // --- Terminal & Execution ---
+            initPython: async () => {
+                state.pyodide = await loadPyodide();
+                
+                // Redirect standard IO
+                state.pyodide.runPython(`
+                    import sys
+                    import js
+                    import builtins
+                    
+                    class CustomWriter:
+                        def write(self, text):
+                            js.ide.printToTerminal(text, 'normal')
+                        def flush(self):
+                            pass
+                            
+                    sys.stdout = CustomWriter()
+                    sys.stderr = CustomWriter()
+                    
+                    async def custom_input(prompt=""):
+                        js.ide.printToTerminal(prompt, 'normal')
+                        val = await js.ide.requestTerminalInput()
+                        return val
+                        
+                    builtins.input = custom_input
+                `);
+            },
+
+            printToTerminal: (text, type = 'normal') => {
+                if(!text) return;
+                
+                // Don't create empty spans for lone newlines if they are just flushing
+                if(text === '\n' && elements.terminal.lastChild && elements.terminal.lastChild.textContent === '') return;
+
+                let escapedText = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                
+                const span = document.createElement('span');
+                if (type === 'prompt') {
+                    span.className = 'term-prompt';
+                    escapedText = `$ ${escapedText}\n`;
+                } else if (type === 'error') {
+                    span.className = 'term-error';
+                } else if (type === 'term-sys') {
+                    span.className = 'term-sys';
+                    escapedText = `${escapedText}\n`;
+                }
+                
+                span.innerHTML = escapedText;
+                elements.terminal.appendChild(span);
+                elements.terminal.scrollTop = elements.terminal.scrollHeight;
+            },
+
+            clearTerminal: () => {
+                elements.terminal.innerHTML = '';
+            },
+
+            requestTerminalInput: async () => {
+                return new Promise((resolve) => {
+                    const container = document.createElement('div');
+                    container.className = 'term-input-line';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'term-input';
+                    input.autocomplete = 'off';
+                    
+                    container.appendChild(input);
+                    elements.terminal.appendChild(container);
+                    
+                    input.focus();
+                    
+                    input.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            const val = input.value;
+                            input.disabled = true;
+                            ide.printToTerminal('\n', 'normal'); // Echo newline
+                            resolve(val);
+                        }
+                    });
+                });
+            },
+
+            focusTerminal: () => {
+                const inputs = elements.terminal.querySelectorAll('input:not([disabled])');
+                if(inputs.length > 0) inputs[inputs.length - 1].focus();
+            },
+
+            runCode: async () => {
+                if (state.isRunning || !state.pyodide) return;
+                
+                const code = editor.getValue();
+                if (!code.trim()) return;
+
+                state.isRunning = true;
+                ide.updateStatus('running', 'Running');
+                elements.btnStop.disabled = false;
+                
+                ide.printToTerminal(`python ${state.activeFileName}`, 'prompt');
+                
+                try {
+                    // Check if we need async execution (for input())
+                    if (code.includes('input(')) {
+                        await state.pyodide.runPythonAsync(code);
+                    } else {
+                        state.pyodide.runPython(code);
+                    }
+                } catch (err) {
+                    let errStr = err.toString();
+                    if (errStr.includes('PythonError:')) errStr = errStr.split('PythonError:').pop().trim();
+                    ide.printToTerminal(`\n${errStr}\n`, 'error');
+                } finally {
+                    state.isRunning = false;
+                    ide.updateStatus('ready', 'Python Ready');
+                    elements.btnStop.disabled = true;
+                    ide.printToTerminal('\n', 'normal');
+                }
+            },
+
+            stopExecution: () => {
+                // True interruption of Pyodide running synchronously is complex.
+                // This acts as a visual reset and attempts to reset state if blocked on input.
+                if(state.isRunning) {
+                    ide.printToTerminal('\n[Execution Interrupted]\n', 'term-error');
+                    state.isRunning = false;
+                    ide.updateStatus('ready', 'Python Ready');
+                    elements.btnStop.disabled = true;
+                    
+                    // Remove active input fields
+                    const inputs = elements.terminal.querySelectorAll('input:not([disabled])');
+                    inputs.forEach(inp => inp.disabled = true);
+                }
+            },
+
+            updateStatus: (stateType, text) => {
+                elements.statusIcon.className = 'fas fa-circle text-[8px] ';
+                if (stateType === 'loading') elements.statusIcon.classList.add('text-ide-muted', 'animate-pulse');
+                else if (stateType === 'ready') elements.statusIcon.classList.add('status-ready');
+                else if (stateType === 'running') elements.statusIcon.classList.add('status-running');
+                else if (stateType === 'error') elements.statusIcon.classList.add('status-error');
+                
+                elements.statusText.textContent = text;
+            },
+
+            // --- Window/Layout Management ---
+            toggleFullscreen: () => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+                    });
+                } else {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                }
+            },
+
+            setupResizers: () => {
+                const resizerSidebar = document.getElementById('resizer-sidebar');
+                const sidebar = document.getElementById('sidebar');
+                
+                let isResizingSidebar = false;
+                
+                resizerSidebar.addEventListener('mousedown', (e) => {
+                    isResizingSidebar = true;
+                    document.body.style.cursor = 'col-resize';
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (!isResizingSidebar) return;
+                    // Keep sidebar within bounds
+                    const newWidth = Math.max(150, Math.min(e.clientX, 400));
+                    sidebar.style.width = `${newWidth}px`;
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    isResizingSidebar = false;
+                    document.body.style.cursor = 'default';
+                });
+
+                const resizerTerminal = document.getElementById('resizer-terminal');
+                const terminal = document.getElementById('terminal-panel');
+                
+                let isResizingTerminal = false;
+                
+                resizerTerminal.addEventListener('mousedown', (e) => {
+                    isResizingTerminal = true;
+                    document.body.style.cursor = 'col-resize';
+                });
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (!isResizingTerminal) return;
+                    // Calculate width from the right edge
+                    const containerWidth = document.body.clientWidth;
+                    const newWidth = Math.max(200, Math.min(containerWidth - e.clientX, containerWidth * 0.7));
+                    terminal.style.width = `${newWidth}px`;
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    isResizingTerminal = false;
+                    document.body.style.cursor = 'default';
+                });
+            },
+
+            // --- Command Palette ---
+            commands: [
+                { name: 'Run Code', icon: 'fa-play', action: () => ide.runCode() },
+                { name: 'Save File', icon: 'fa-save', action: () => ide.saveFile() },
+                { name: 'Find in Code', icon: 'fa-search', action: () => editor.execCommand('find') },
+                { name: 'Replace in Code', icon: 'fa-exchange-alt', action: () => editor.execCommand('replace') },
+                { name: 'Clear Terminal', icon: 'fa-trash', action: () => ide.clearTerminal() },
+                { name: 'Download File', icon: 'fa-download', action: () => ide.downloadFile() },
+                { name: 'Toggle Fullscreen', icon: 'fa-expand', action: () => ide.toggleFullscreen() }
+            ],
+
+            openCommandPalette: () => {
+                elements.cmdPalette.classList.add('active');
+                elements.cmdBackdrop.classList.add('active');
+                elements.cmdInput.value = '';
+                ide.renderCommandList(ide.commands);
+                elements.cmdInput.focus();
+            },
+
+            closeCommandPalette: () => {
+                elements.cmdPalette.classList.remove('active');
+                elements.cmdBackdrop.classList.remove('active');
+                editor.focus();
+            },
+
+            renderCommandList: (cmds) => {
+                elements.cmdList.innerHTML = '';
+                cmds.forEach((cmd, idx) => {
+                    const div = document.createElement('div');
+                    div.className = `cmd-item ${idx === 0 ? 'selected' : ''}`;
+                    div.innerHTML = `<span><i class="fas ${cmd.icon} w-6 text-center text-ide-muted mr-2"></i> ${cmd.name}</span>`;
+                    div.onclick = () => {
+                        ide.closeCommandPalette();
+                        cmd.action();
+                    };
+                    elements.cmdList.appendChild(div);
+                });
+            },
+
+            setupKeyboardShortcuts: () => {
+                document.addEventListener('keydown', (e) => {
+                    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'p') {
+                        e.preventDefault();
+                        ide.openCommandPalette();
+                    }
+                });
+
+                elements.cmdInput.addEventListener('input', (e) => {
+                    const val = e.target.value.toLowerCase();
+                    const filtered = ide.commands.filter(c => c.name.toLowerCase().includes(val));
+                    ide.renderCommandList(filtered);
+                });
+
+                elements.cmdInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') ide.closeCommandPalette();
+                    if (e.key === 'Enter') {
+                        const selected = elements.cmdList.querySelector('.selected');
+                        if (selected) selected.click();
+                    }
+                });
+            }
+        };
+
+        // --- Start Application ---
+        window.addEventListener('DOMContentLoaded', ide.init);
+
+    </script>
+</body>
+</html>
