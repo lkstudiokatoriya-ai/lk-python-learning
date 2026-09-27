@@ -7,6 +7,7 @@ student = {
 }
 
 # Modifying an existing item
+student["name"] = "Ashish" 
 student["age"] = 18
 student["branch"] = "Civil"
 
