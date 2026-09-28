@@ -1,0 +1,348 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1024"
+  height="1024"
+  viewBox="0 0 1024 1024"
+  fill="none">
+
+  <defs>
+
+    <linearGradient
+      id="pythonBlue"
+      x1="12.4809"
+      y1="2"
+      x2="12.4809"
+      y2="22.7407"
+      gradientUnits="userSpaceOnUse">
+
+      <stop offset="0" stop-color="#327EBD"/>
+      <stop offset="1" stop-color="#1565A7"/>
+
+    </linearGradient>
+
+    <linearGradient
+      id="pythonYellow"
+      x1="19.519"
+      y1="9.25928"
+      x2="19.519"
+      y2="30"
+      gradientUnits="userSpaceOnUse">
+
+      <stop offset="0" stop-color="#FFDA4B"/>
+      <stop offset="1" stop-color="#F9C600"/>
+
+    </linearGradient>
+
+    <filter
+      id="blueGlow"
+      x="-100%"
+      y="-100%"
+      width="300%"
+      height="300%">
+
+      <feGaussianBlur
+        stdDeviation="0.35"
+        result="blur"/>
+
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+
+    </filter>
+
+    <filter
+      id="yellowGlow"
+      x="-100%"
+      y="-100%"
+      width="300%"
+      height="300%">
+
+      <feGaussianBlur
+        stdDeviation="0.35"
+        result="blur"/>
+
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+
+    </filter>
+
+    <filter
+      id="nodeGlow"
+      x="-200%"
+      y="-200%"
+      width="400%"
+      height="400%">
+
+      <feGaussianBlur stdDeviation="3"/>
+
+    </filter>
+
+  </defs>
+
+  <g
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round">
+
+    <g
+      stroke="#087BEA"
+      stroke-width="4"
+      opacity="0.62">
+
+      <path d="M300 90V160L250 210V285"/>
+      <path d="M385 55V125L340 170V245"/>
+      <path d="M470 70V170"/>
+      <path d="M512 35V135"/>
+      <path d="M640 75V165L675 200V265"/>
+      <path d="M750 100V180L705 225V300"/>
+
+      <path d="M65 340H145L200 395H255"/>
+      <path d="M40 445H120L180 505H245"/>
+      <path d="M60 565H140L195 510"/>
+      <path d="M75 735H155L210 680H260"/>
+      <path d="M65 820H140L200 760"/>
+      <path d="M105 910H175L235 850H300"/>
+
+      <path d="M959 340H879L824 395H769"/>
+      <path d="M984 445H904L844 505H779"/>
+      <path d="M964 565H884L829 620H774"/>
+      <path d="M954 735H874L819 680H764"/>
+      <path d="M974 820H894L834 760"/>
+      <path d="M919 910H849L789 850H724"/>
+
+      <path d="M300 935V855L350 805"/>
+      <path d="M400 975V875L450 825"/>
+      <path d="M512 995V875"/>
+      <path d="M624 975V875L574 825"/>
+      <path d="M724 940V850L674 805"/>
+
+    </g>
+
+    <g
+      stroke="#FFE21A"
+      stroke-width="3"
+      opacity="0.65">
+
+      <path d="M905 280H840L790 330"/>
+      <path d="M930 520H850L805 565"/>
+      <path d="M905 700H835L785 750"/>
+
+      <path d="M145 280H210L255 325"/>
+      <path d="M105 620H180L230 670"/>
+      <path d="M140 790H210L260 740"/>
+
+    </g>
+
+    <g
+      stroke="#168CE8"
+      stroke-width="4"
+      opacity="0.55">
+
+      <rect
+        x="255"
+        y="130"
+        width="25"
+        height="25"/>
+
+      <rect
+        x="735"
+        y="130"
+        width="25"
+        height="25"/>
+
+      <rect
+        x="90"
+        y="480"
+        width="45"
+        height="45"
+        rx="5"/>
+
+      <rect
+        x="889"
+        y="480"
+        width="45"
+        height="45"
+        rx="5"/>
+
+    </g>
+
+    <g
+      stroke="#FFE22A"
+      stroke-width="4"
+      opacity="0.5">
+
+      <rect
+        x="880"
+        y="475"
+        width="45"
+        height="45"/>
+
+      <rect
+        x="99"
+        y="475"
+        width="45"
+        height="45"/>
+
+    </g>
+
+    <g
+      fill="#18BFFF"
+      filter="url(#nodeGlow)">
+
+      <circle cx="300" cy="90" r="7"/>
+      <circle cx="385" cy="55" r="7"/>
+      <circle cx="470" cy="70" r="7"/>
+      <circle cx="512" cy="35" r="8"/>
+      <circle cx="640" cy="75" r="7"/>
+      <circle cx="750" cy="100" r="7"/>
+
+      <circle cx="65" cy="340" r="7"/>
+      <circle cx="40" cy="445" r="7"/>
+      <circle cx="75" cy="735" r="7"/>
+      <circle cx="65" cy="820" r="7"/>
+      <circle cx="105" cy="910" r="7"/>
+
+      <circle cx="959" cy="340" r="7"/>
+      <circle cx="984" cy="445" r="7"/>
+      <circle cx="954" cy="735" r="7"/>
+      <circle cx="974" cy="820" r="7"/>
+      <circle cx="919" cy="910" r="7"/>
+
+    </g>
+
+    <g
+      fill="#FFE91A"
+      filter="url(#nodeGlow)">
+
+      <circle cx="905" cy="280" r="7"/>
+      <circle cx="930" cy="520" r="7"/>
+      <circle cx="905" cy="700" r="7"/>
+
+      <circle cx="145" cy="280" r="7"/>
+      <circle cx="105" cy="620" r="7"/>
+      <circle cx="140" cy="790" r="7"/>
+
+    </g>
+
+  </g>
+
+  <g
+    transform="translate(85.28 85.28) scale(26.67)">
+
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="
+        M13.0164 2
+        C10.8193 2 9.03825 3.72453 9.03825 5.85185
+        V8.51852
+        H15.9235
+        V9.25926
+        H5.97814
+        C3.78107 9.25926 2 10.9838 2 13.1111
+        L2 18.8889
+        C2 21.0162 3.78107 22.7407 5.97814 22.7407
+        H8.27322
+        V19.4815
+        C8.27322 17.3542 10.0543 15.6296 12.2514 15.6296
+        H19.5956
+        C21.4547 15.6296 22.9617 14.1704 22.9617 12.3704
+        V5.85185
+        C22.9617 3.72453 21.1807 2 18.9836 2
+        H13.0164
+        Z
+
+        M12.0984 6.74074
+        C12.8589 6.74074 13.4754 6.14378 13.4754 5.40741
+        C13.4754 4.67103 12.8589 4.07407 12.0984 4.07407
+        C11.3378 4.07407 10.7213 4.67103 10.7213 5.40741
+        C10.7213 6.14378 11.3378 6.74074 12.0984 6.74074
+        Z
+      "
+      fill="url(#pythonBlue)"/>
+
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="
+        M18.9834 30
+        C21.1805 30 22.9616 28.2755 22.9616 26.1482
+        V23.4815
+        H16.0763
+        V22.7408
+        H26.0217
+        C28.2188 22.7408 29.9998 21.0162 29.9998 18.8889
+        V13.1111
+        C29.9998 10.9838 28.2188 9.25928 26.0217 9.25928
+        H23.7266
+        V12.5185
+        C23.7266 14.6459 21.9455 16.3704 19.7485 16.3704
+        H12.4042
+        C10.5451 16.3704 9.03809 17.8296 9.03809 19.6296
+        L9.03809 26.1482
+        C9.03809 28.2755 10.8192 30 13.0162 30
+        H18.9834
+        Z
+
+        M19.9015 25.2593
+        C19.1409 25.2593 18.5244 25.8562 18.5244 26.5926
+        C18.5244 27.329 19.1409 27.9259 19.9015 27.9259
+        C20.662 27.9259 21.2785 27.329 21.2785 26.5926
+        C21.2785 25.8562 20.662 25.2593 19.9015 25.2593
+        Z
+      "
+      fill="url(#pythonYellow)"/>
+
+  </g>
+
+  <path
+    d="M505 605C535 605 560 592 575 570"
+    fill="none"
+    stroke="#FFE66A"
+    stroke-width="4"
+    opacity="0.45"/>
+
+  <g
+    stroke="#18C9FF"
+    stroke-width="4"
+    opacity="0.65"
+    stroke-linecap="round">
+
+    <path d="M450 180V120"/>
+    <path d="M512 150V85"/>
+    <path d="M574 180V120"/>
+
+  </g>
+
+  <g fill="#24D1FF">
+
+    <circle cx="450" cy="120" r="6"/>
+    <circle cx="512" cy="85" r="7"/>
+    <circle cx="574" cy="120" r="6"/>
+
+  </g>
+
+  <g
+    stroke="#FFE21A"
+    stroke-width="4"
+    opacity="0.65"
+    stroke-linecap="round">
+
+    <path d="M450 900V960"/>
+    <path d="M512 925V990"/>
+    <path d="M574 900V960"/>
+
+  </g>
+
+  <g fill="#FFE21A">
+
+    <circle cx="450" cy="960" r="6"/>
+    <circle cx="512" cy="990" r="7"/>
+    <circle cx="574" cy="960" r="6"/>
+
+  </g>
+
+</svg>
