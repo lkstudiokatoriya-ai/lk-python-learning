@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lk-python-learning.vercel.app/sitemap.xml
