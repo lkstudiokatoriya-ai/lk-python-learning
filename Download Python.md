@@ -54,7 +54,7 @@ https://www.python.org/downloads/
 
 ### 📷 Photo
 
-![Python Official Website](images/python-official-website.png)
+![Python Official Website](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIofLJ7tlOEKSmEKW_0uELNISKfeqsEBORYQVaQ5kKKg&s=10)
 
 - [ ] Python official website opened
 
