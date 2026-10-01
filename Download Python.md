@@ -72,7 +72,7 @@ For Windows, follow the current Python.org Windows installation instructions.
 
 ### 📷 Photo
 
-![Python Download Page](images/python-download-page.png)
+![Python Download Page](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZXMV9YcT8X5KQlwEqxU2jF-tNndVsjgOwSnuuauGpfCzf7ft1rq0kLls&s=10)
 
 - [ ] Python download page opened
 - [ ] Python downloaded
